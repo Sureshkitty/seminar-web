@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seminar Form with Photo Upload</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f2f2f2;
+      color: #000;
+    }
+
+    header {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #headerImage {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    textarea {
+      border: 2px solid #000;
+      padding: 15px 10px;
+      width: 100%;
+      font-size: 18px;
+      font-weight: bold;
+      box-sizing: border-box;
+      resize: none;
+      background-color: white;
+      height: 80px;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
+
+    .preview {
+      border: 2px solid #000;
+      width: 100%;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      background-color: white;
+      padding: 0;
+    }
+
+    #previewImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      border-radius: 0;
+    }
+
+    #printButton {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Footer for print page number */
+.page-footer {
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 20px;
+  text-align: left;
+  display: none;
+  background-color: white;
+}
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        background: white;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+
+      #printButton,
+      input[type="file"] {
+        display: none !important;
+      }
+
+      textarea {
+        border: 2px solid #000;
+        background-color: white;
+        color: black;
+      }
+
+      #previewImage {
+        display: block !important;
+        box-shadow: none;
+      }
+
+      .page-footer {
+        display: block;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      .container {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Image -->
+  <header>
+    <img src="header.jpg" alt="University Banner" id="headerImage">
+  </header>
+
+  <div class="container">
+    <!-- Seminar Title -->
+    <div class="section">
+      <label for="seminarTitle">Seminar Title:</label>
+      <textarea id="seminarTitle" placeholder="" required></textarea>
+    </div>
+
+    <!-- Student Photo Upload -->
+    <div class="section">
+      <label for="imageInput">Student photo:</label>
+      <input type="file" id="imageInput" accept="image/*">
+
+      <div class="preview" id="previewContainer">
+        <img id="previewImage" src="" alt="Student Photo Preview" />
+      </div>
+    </div>
+
+    <!-- Fixed Page Footer -->
+    <div class="page-footer">Page 2 of 4</div>
+
+    <!-- Print Button -->
+    <button id="printButton">🖨️ Print Page</button>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const previewImage = document.getElementById("previewImage");
+    const printButton = document.getElementById("printButton");
+
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          previewImage.src = e.target.result;
+          previewImage.alt = `Preview of ${file.name}`;
+          previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    printButton.addEventListener("click", () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
