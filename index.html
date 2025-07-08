@@ -72,7 +72,7 @@
     #previewImage {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* ✅ ensures no cropping */
       display: none;
       border-radius: 0;
     }
@@ -85,17 +85,17 @@
     }
 
     /* Footer for print page number */
-.page-footer {
-  font-size: 14px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 5px 20px;
-  text-align: left;
-  display: none;
-  background-color: white;
-}
+    .page-footer {
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 5px 20px;
+      text-align: left;
+      display: none;
+      background-color: white;
+    }
 
     /* PRINT STYLES */
     @media print {
@@ -146,12 +146,12 @@
     <!-- Seminar Title -->
     <div class="section">
       <label for="seminarTitle">Seminar Title:</label>
-      <textarea id="seminarTitle" placeholder="" required></textarea>
+      <textarea id="seminarTitle" placeholder="Enter seminar title here..." required></textarea>
     </div>
 
     <!-- Student Photo Upload -->
     <div class="section">
-      <label for="imageInput">Student photo:</label>
+      <label for="imageInput">Student Photo:</label>
       <input type="file" id="imageInput" accept="image/*">
 
       <div class="preview" id="previewContainer">
